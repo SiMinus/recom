@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{sys.title}}</title>
+</head>
+<body>
+<div>
+    <h3>{{sys.title}}</h3>
+    <div>
+        欢迎使用{{sys.title}}，<a href="/admin">点击这里</a> 访问后台管理
+    </div>
+    <div>
+        <span>author: {{sys.author}} <a href="https://gitee.com/knifecms/KnifeREC" target="_blank">git</a></span>
+    </div>
+
+    <h1>请输入 ID 并生成结果</h1>
+
+    <form action="{{ url_for('recommend') }}" method="POST">
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" required>
+        <button type="submit">生成结果</button>
+    </form>
+    {% if result %}
+        <h2>推荐结果:</h2>
+        
+        {% if result is mapping and 'movie_names' in result %}
+            <h3>推荐的电影:</h3>
+            <ul>
+                {% for movie in result['movie_names'] %}
+                    <li>{{ movie }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h3>{{ result }}</h3>
+        {% endif %}
+    {% endif %}
+
+</div>
+
+</body>
+</html>
